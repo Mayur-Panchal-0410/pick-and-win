@@ -1,32 +1,58 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import products from '../products';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import BuyButton from '../components/BuyButton';
 
 function ProductPage() {
     const { id } = useParams();
-    const product = products.find((item) => item.id === id);
+    const [product, setProduct] = useState({});
 
-    if (!product) {
-        return <p>Product not found.</p>;
-    }
+    // Fetch product data on mount based on id
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const accessToken = localStorage.getItem('token');
+                console.log('Access Token:', accessToken);
+                
+                
+                const response = await axios.get(`http://localhost:450/getproductsbyid/${id}`,{
+                     headers: {
+                        'authorization': accessToken
+                    }
+                });  // Assuming API endpoint
+                console.log(response.data.data,"xxxxxxxxxxxxxxxxxxxxxxx")
+                const fetchedProduct = response.data.data;  //
+                setProduct(fetchedProduct);
+            } catch (error) {
+                console.error("Error fetching product:", error);
+            }
+        };
+
+        fetchProduct();
+    }, [id]);
+
 
     return (
         <Container className='mt-3'>
             <Row>
-                <Col>
-                    <img src={product.image_url} alt={product.title} style={{ width: '100%' }} />
+                <Col sm={12} md={6}>
+                    <img 
+                        src={product.image_path}  // Use image_path from the API
+                        alt={product.product_name}  // Use product_name for alt text
+                        style={{ width: '100%', height: 'auto' }} 
+                    />
                 </Col>
-                <Col>
+                <Col sm={12} md={6}>
                     <Row>
-                        <h2>{product.title}</h2>
-                        <p>{product.description}</p>
-                        <p><strong>Price: ${product.price}</strong></p>
-                        <p><strong>Quantity Available: {product.quantity}</strong></p>
+                        <h2>{product.product_name}</h2>  {/* Use product_name */}
+                        <p>{product.description || 'No description available'}</p> {/* Add a description fallback */}
+                        <p><strong>Price: ${product.product_price}</strong></p>  {/* Use product_price */}
+                        <p><strong>Quantity Available: {product.ticket_quantity}</strong></p>  {/* Use ticket_quantity */}
                     </Row>
                     <Row>
-                       <BuyButton/>
+                       <BuyButton productId={product.id} /> {/* Pass product ID to BuyButton */}
                     </Row>
                 </Col>
             </Row>
@@ -46,4 +72,5 @@ function ProductPage() {
 }
 
 export default ProductPage;
+
 

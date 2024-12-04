@@ -6,7 +6,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import LoginModal from './Login';
-import SignupModal from './Signup';
 
 function NavScrollExample() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -48,7 +47,6 @@ function NavScrollExample() {
               <FaSearch />
             </Button>
             <LoginModal />
-            <SignupModal/>
           </Form>
         </Navbar.Collapse>
       </Container>

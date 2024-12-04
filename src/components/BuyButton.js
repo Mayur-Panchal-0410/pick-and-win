@@ -12,7 +12,7 @@ function BuyButton() {
     <>
       <Container className="text-center">
         <Button variant="primary" onClick={handleShow}>
-          Open Modal
+          BUY
         </Button>
       </Container>
 
