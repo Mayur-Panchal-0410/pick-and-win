@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -14,6 +14,13 @@ function LoginModal() {
   const [isSignUp, setIsSignUp] = useState(false); // Toggle between login and sign-up
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleClose = () => {
     setShow(false);
@@ -52,6 +59,8 @@ function LoginModal() {
         localStorage.setItem('token', userData.token); // Save token to localStorage
         alert(`Welcome, ${userData.user_name}!`);
         setIsLoggedIn(true); // Set login state to true
+        window.location.reload(); 
+
       }
       handleClose(); // Close modal on success
     } catch (error) {

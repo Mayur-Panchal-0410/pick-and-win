@@ -30,7 +30,7 @@
 //     const buyButton = (id) => {
 //         navigate(`/product/${id}`);
 
-       
+
 
 //     };
 //     return (
@@ -39,7 +39,7 @@
 //         <Container className='mt-3'>
 //             <div className='d-flex justify-content-center'>
 //                 <h1>PICK & WIN</h1>
-                
+
 //             </div>
 //             <Row>
 //                 {products.map((product) => {
@@ -118,7 +118,7 @@ function Home() {
                 const response = await axios.get('http://localhost:450/getproducts');
                 console.log(response.data, "<+=====================");
                 setProductsList(response.data.data);
-                
+
             } catch (error) {
                 console.error("Error fetching products:", error);
             }
@@ -141,27 +141,27 @@ function Home() {
                 </div>
                 <Row>
                     {productsList.map((product) => {
-                        const quantity = product.ticket_quantity || 400; // Using ticket_quantity from the API response
-                        const totalQuantity = 100; // Assuming a static totalQuantity, you can adjust as needed
-                        const progressPercentage = (quantity / totalQuantity) * 100;
+                        const quantity = product.sold_tickets || 0;
+                        const totalQuantity = product.ticket_quantity || 1;
+                        const progressPercentage = Math.min((quantity / totalQuantity) * 100, 100); // Ensures percentage doesn't exceed 100
 
                         return (
                             <Col key={product.id} sm={12} md={4} lg={3} className="mb-4">
                                 <Card className="card">
                                     <Card.Img
                                         variant="top"
-                                        src={product.image_path} 
+                                        src={product.image_path}
                                         alt="Product Image"
                                         className="card-img"
                                         style={{ height: "250px" }}
                                     />
                                     <Card.Body className="card-body">
-                                        <Card.Title className="card-title">{product.product_name}</Card.Title> {/* Use product_name */}
+                                        <Card.Title className="card-title">{product.product_name}</Card.Title>
                                         <Card.Text className="card-text">
-                                            <strong>Price: ${product.product_price}</strong> {/* Use product_price */}
+                                            <strong>Price: ${product.product_price}</strong>
                                         </Card.Text>
                                         <Card.Text className="card-text">
-                                            <strong>Ticket Cost: ${product.ticket_cost || 10}</strong> {/* Use ticket_cost if available, else default to 10 */}
+                                            <strong>Ticket Cost: ${product.ticket_price}</strong>
                                         </Card.Text>
                                         <Card.Text className="card-text">
                                             <strong>Quantity: {quantity}/{totalQuantity}</strong>
@@ -169,11 +169,13 @@ function Home() {
                                         <ProgressBar
                                             now={progressPercentage}
                                             label={`${progressPercentage.toFixed(0)}%`}
-                                            variant={progressPercentage >= 100 ? 'success' : 'primary'}
+                                            variant={progressPercentage >= 100 ? "success" : "primary"}
                                         />
                                         <br />
                                         <Card.Text className="card-text d-flex justify-content-center">
-                                            <Button variant="outline-primary" onClick={() => buyButton(product.id)}>Buy</Button>
+                                            <Button variant="outline-primary" onClick={() => buyButton(product.id)}>
+                                                Buy
+                                            </Button>
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
@@ -181,6 +183,7 @@ function Home() {
                         );
                     })}
                 </Row>
+
                 <h3>HOW TO PLAY?</h3>
                 <ul>
                     <li>Purchase a ticket to enter the game and qualify for prize draws.</li>

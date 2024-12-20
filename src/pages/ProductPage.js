@@ -4,10 +4,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import BuyButton from '../components/BuyButton';
+import Navigation from '../components/NavigationBar';
 
 function ProductPage() {
     const { id } = useParams();
     const [product, setProduct] = useState({});
+    const [count,setCount]=useState(0)
 
     // Fetch product data on mount based on id
     useEffect(() => {
@@ -35,6 +37,8 @@ function ProductPage() {
 
 
     return (
+        <>
+        <Navigation/>
         <Container className='mt-3'>
             <Row>
                 <Col sm={12} md={6}>
@@ -52,6 +56,10 @@ function ProductPage() {
                         <p><strong>Quantity Available: {product.ticket_quantity}</strong></p>  {/* Use ticket_quantity */}
                     </Row>
                     <Row>
+
+                    </Row>
+                    
+                    <Row>
                        <BuyButton productId={product.id} /> {/* Pass product ID to BuyButton */}
                     </Row>
                 </Col>
@@ -68,6 +76,7 @@ function ProductPage() {
                 </ul>
             </Row>
         </Container>
+        </>
     );
 }
 

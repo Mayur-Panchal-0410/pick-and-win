@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,6 +8,11 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import './Userdropdown.css'
 
 function UserDropdown() {
+   const logout=()=>{
+    localStorage.clear();
+    window.location.reload();
+    }
+ 
     return (
         <Navbar expand="sm" >
             <Container>
@@ -25,8 +30,9 @@ function UserDropdown() {
                             align="end" 
                         >
                             <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="myorders">My Orders</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
+                            <NavDropdown.Item onClick={logout} >Logout</NavDropdown.Item>
                         </NavDropdown>
 
                     </Nav>
