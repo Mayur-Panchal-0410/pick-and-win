@@ -7,7 +7,7 @@ function Payment() {
   const location = useLocation(); // Retrieve data passed via navigation
   const navigate = useNavigate();
 
-  const { product_id, quantity } = location.state || { product_id: null, quantity: 1 }; // Default values
+  const { product_id, quantity } = location.state || { product_id: null, quantity: 1 };
 
   // Handle Confirm Button Click
   const handleConfirm = async () => {

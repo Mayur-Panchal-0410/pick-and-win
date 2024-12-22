@@ -1,10 +1,10 @@
-
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import UserDropdown from './Userdropdown'; // Import the UserDropdown component
+import './Login.css'; // Import your CSS file
 
 function LoginModal() {
   const [show, setShow] = useState(false);
@@ -60,7 +60,6 @@ function LoginModal() {
         alert(`Welcome, ${userData.user_name}!`);
         setIsLoggedIn(true); // Set login state to true
         window.location.reload(); 
-
       }
       handleClose(); // Close modal on success
     } catch (error) {
@@ -90,14 +89,16 @@ function LoginModal() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{isSignUp ? 'Create an Account' : 'Login to Continue'}</Modal.Title>
+          <Modal.Title style={{ color: 'black' }}>
+            {isSignUp ? 'Create an Account' : 'Login to Continue'}
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ color: 'black' }}>
           {error && <p className="text-danger">{error}</p>}
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} style={{ color: 'black' }}>
             {isSignUp && (
               <Form.Group controlId="formName" className="mb-3">
-                <Form.Label>Name</Form.Label>
+                <Form.Label style={{ color: 'black' }}>Name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter your name"
@@ -109,7 +110,7 @@ function LoginModal() {
             )}
 
             <Form.Group controlId="formEmail" className="mb-3">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label style={{ color: 'black' }}>Email address</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter your email"
@@ -120,7 +121,7 @@ function LoginModal() {
             </Form.Group>
 
             <Form.Group controlId="formPassword" className="mb-3">
-              <Form.Label>Password</Form.Label>
+              <Form.Label style={{ color: 'black' }}>Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Enter your password"

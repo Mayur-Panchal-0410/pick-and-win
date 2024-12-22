@@ -6,12 +6,18 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import './Userdropdown.css'
+import { useNavigate } from 'react-router-dom';
 
 function UserDropdown() {
    const logout=()=>{
     localStorage.clear();
     window.location.reload();
     }
+    const navigate = useNavigate();
+    const handleViewOrders = () => {
+        navigate('/myorders'); // Navigate directly to /myorders
+    };
+
  
     return (
         <Navbar expand="sm" >
@@ -30,7 +36,7 @@ function UserDropdown() {
                             align="end" 
                         >
                             <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="myorders">My Orders</NavDropdown.Item>
+                            <NavDropdown.Item onClick={handleViewOrders}>My Orders</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item onClick={logout} >Logout</NavDropdown.Item>
                         </NavDropdown>

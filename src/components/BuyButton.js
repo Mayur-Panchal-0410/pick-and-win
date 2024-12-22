@@ -5,8 +5,8 @@ import LoginModal from './Login';
 
 function BuyButton({ productId }) {
   const [show, setShow] = useState(false);
-  const [quantity, setQuantity] = useState(1); // Initialize quantity to 1
-  const navigate = useNavigate(); // For programmatic navigation
+  const [quantity, setQuantity] = useState(1); 
+  const navigate = useNavigate(); 
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -51,7 +51,7 @@ function BuyButton({ productId }) {
       {/* Modal */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>You have to login for purchase</Modal.Title>
+          <Modal.Title style={{color:"black"}} >You have to login for purchase</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <LoginModal />

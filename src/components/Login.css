@@ -1,0 +1,11 @@
+.modal-body {
+    color: black; /* Change text color to black */
+}
+
+.modal.title {
+    color: black; /* Change modal title color to black */
+}
+
+.text-danger {
+    color: red; /* Keep error messages red for visibility */
+}
